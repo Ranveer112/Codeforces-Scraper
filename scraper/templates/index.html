@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" media="all" href="https://cdn.jsdelivr.net/gh/hankchizljaw/boilerform@master/dist/css/boilerform.min.css?v=1.1.1" />
+    <script src="https://cdn.jsdelivr.net/gh/hankchizljaw/boilerform@master/dist/js/boilerform.min.js?v=1.1.1" async defer></script>
+    {% load static %}
+    <link rel="stylesheet"  href="{% static 'internal.css'%}" />
+    <title>Codeforces grepper</title>
+</head>
+<!-- The boilerform namespace -->
+<form class="boilerform" action="/scraper/fetchCodes/" method="get">
+    <fieldset class="c-form">
+        <legend class="c-form__heading">Codeforces Scraper</legend>
+        <div class="c-form__row">
+            <label for="handle" class="c-label">Handle</label>
+            <input type="text" name="handle" id="handle" class="c-input-field" value="" autocorrect="off" required />
+        </div>
+        <div class="c-form__row">
+            <label for="pattern" class="c-label">Pattern</label>
+            <input type="text" name="pattern" id="pattern" autocapitalize="none" autocorrect="off" class="c-input-field" required />
+        </div>
+
+        <div class="c-form__row">
+        <label for="lang" class="c-label">Language</label>
+
+        <select name="lang" id="lang">
+            <option value="javascript">JavaScript</option>
+            <option value="php">PHP</option>
+            <option value="java">Java</option>
+            <option value="golang">Golang</option>
+            <option value="python">Python</option>
+            <option value="c#">C#</option>
+            <option value="C++">C++</option>
+            <option value="erlang">Erlang</option>
+          </select>
+        </div>
+        <div class="c-form__row">
+            <button class="c-button" type="submit">Submit</button>
+        </div>
+    </fieldset>
+</form>
+<pre>
+  <code>
+      {{code}}
+  </code>
+</pre>
+</html>
