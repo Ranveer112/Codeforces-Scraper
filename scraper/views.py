@@ -19,6 +19,7 @@ def fetch(request):
     TILL = 10000
     COUNT = 1
     URL = "https://codeforces.com/api/user.status?handle=" + handle + "&from=" + str(FROM) + "&count=" + str(TILL)
+    print(target_lang)
     response = requests.get(URL)
     submissions = response.json()["result"]
     normalizedSubmissions = []
@@ -29,24 +30,16 @@ def fetch(request):
                                           'name': submissions[i]['problem']['name'],
                                           'lang': submissions[i]['programmingLanguage']})
 
-    FILE_EXTENSIONS = {'GNU C++17': 'cpp', 'Java': 'java'}
-    alreadyMadeFiles = set()
     for i in range(0, len(normalizedSubmissions)):
         time.sleep(2)
-        if len(alreadyMadeFiles) < COUNT and normalizedSubmissions[i]['lang'] in FILE_EXTENSIONS:
-            URL = "https://codeforces.com/contest/" + str(normalizedSubmissions[i]['contestId']) + "/submission/" + str(
-                normalizedSubmissions[i]['sId'])
-            response = requests.get(URL)
-            soup = BeautifulSoup(response.text, 'html.parser')
-            if soup.find(id="program-source-text"):
-                code = soup.find(id="program-source-text").get_text()
+        URL = "https://codeforces.com/contest/" + str(normalizedSubmissions[i]['contestId']) + "/submission/" + str(
+            normalizedSubmissions[i]['sId'])
+        response = requests.get(URL)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        if soup.find(id="program-source-text"):
+            code = soup.find(id="program-source-text").get_text()
+            if re.search(pattern, code):
+                context={'code':code}
                 print(code)
-                fileName = normalizedSubmissions[i]['name'] + "." + FILE_EXTENSIONS[normalizedSubmissions[i]['lang']]
-                # only makes the file for the latest submission in that paticular language
-                if re.search(pattern, code):
-                    context={'code':code}
-                    return render(request, 'index.html', context)
-
-        elif len(alreadyMadeFiles) >= COUNT:
-            break
-    return HttpResponse(handle+pattern)
+                return render(request, 'index.html', context)
+    return render(request, 'index.html')
