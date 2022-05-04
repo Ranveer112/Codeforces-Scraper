@@ -29,7 +29,7 @@ def fetch(request):
             normalizedSubmissions.append({'sId': submissions[i]['id'], 'contestId': submissions[i]['contestId'],
                                           'name': submissions[i]['problem']['name'],
                                           'lang': submissions[i]['programmingLanguage']})
-
+    #FILE_EXTENSIONS = {'GNU C++17': 'cpp', 'GNU C++14':'cpp', 'GNU C++20(64)':'cpp',  'Java 5': 'java', 'Java 8': 'java'}
     for i in range(0, len(normalizedSubmissions)):
         time.sleep(2)
         URL = "https://codeforces.com/contest/" + str(normalizedSubmissions[i]['contestId']) + "/submission/" + str(
@@ -40,6 +40,5 @@ def fetch(request):
             code = soup.find(id="program-source-text").get_text()
             if re.search(pattern, code):
                 context={'code':code}
-                print(code)
                 return render(request, 'index.html', context)
     return render(request, 'index.html')
