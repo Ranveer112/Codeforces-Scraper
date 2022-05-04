@@ -1,0 +1,30 @@
+.c-form {
+  display: block;
+  border: none;
+  margin: 50px auto;
+  max-width: 500px;
+}
+.c-form__heading {
+  display: block;
+  width: 100%;
+  font-size: 2rem;
+  line-height: 1.2;
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 5px 0;
+  margin: 0 0 10px 0;
+}
+.c-form__row + .c-form__row {
+  padding-top: 25px;
+}
+.c-form__row [name] {
+  min-width: 66.6666666667%;
+}
+
+body {
+  background: #f3f3f3;
+  font-family: sans-serif;
+}
+select {
+     margin-bottom: 10px;
+     margin-top: 10px;
+   }
